@@ -2,6 +2,7 @@ package projects.PI.nodes.nodeImplementations;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import sinalgo.gui.transformation.PositionTransformation;
 import sinalgo.nodes.Node;
 import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
+import sinalgo.nodes.edges.Edge;
 
 public class PIFNode extends Node {
 	private List<Integer> messagesReceived;
@@ -36,10 +38,17 @@ public class PIFNode extends Node {
 				
 				if (!messagesReceived.contains(((INFMessage) msg).id)) {
 					
+					//marca que recebeu a msg
 					messagesReceived.add(((INFMessage) msg).id);
 					
-					MessageTimer infMSG = new MessageTimer(msg);
-					infMSG.startRelative(1, this);
+					for (Edge edge : this.outgoingConnections) {
+						
+						//nao manda pro noh papai
+						if(edge.endNode.ID != ((INFMessage) msg).senderID ){
+							MessageTimer infMSG = new MessageTimer(msg, edge.endNode.ID);
+							infMSG.startRelative(1, this);
+						}
+			      	}
 					
 					if(messagesReceived.size() == numberMessages){
 						this.setColor(Color.GREEN);

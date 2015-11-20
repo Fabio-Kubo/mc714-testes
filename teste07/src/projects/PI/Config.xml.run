@@ -49,15 +49,15 @@
 		<!--Defines how often the GUI is updated. The GUI is redrawn after every refreshRate-th round.-->
 		<refreshRate value="1" />
 
-		<!--If set to true, the framework will inform a sender whenever a unicast message is dropped. In synchronous mode, the sender  is informed in the round after the message should have arrived, and  immediately upon arrival in asynchronous mode.-->
+		<!--If set to true, the framework will inform a sender whenever  a unicast message is dropped. In synchronous mode, the sender  is informed in the round after the message should have arrived, and  immediately upon arrival in asynchronous mode.-->
 		<generateNAckMessages value="true" />
 
 		<!--This flag only affects the asynchronous simulation mode.  When set to true, the framework calls handleEmptyEventQueue  on the project specific CustomGlobal whenever the event queue  becomes empty.-->
 		<handleEmptyEventQueue value="true" />
 
 		<!--The java-command used to start the simulation process. E.g. 'java', 'nice -n 19 java', 'time java' This command should NOT contain the -Xmx flag, nor set the classpath of java.-->
-		<javaCmd value="java" /> 
-		<!-- <javaCmd value="java -Djava.awt.headless=true " /> -->
+		<javaCmd value="java" />
+
 		<!--Maximum memory the Java VM is allowed to use (in MB)-->
 		<javaVMmaxMem value="512" />
 
@@ -220,7 +220,7 @@
 		<!--The width of the arrows. This width is multiplied by the current zoomLevel.-->
 		<arrowWidth value="1" />
 
-		<!--The default value of the rounds field.-->
+		<!--The dsfault value of the rounds field.-->
 		<defaultRoundNumber value="1" />
 
 	</Framework>
@@ -299,7 +299,6 @@
 <Log>
 	<LogFile value="infraLog.txt" />
 </Log>
-																												</Custom>
+																													</Custom>
 </Document>
-
 
