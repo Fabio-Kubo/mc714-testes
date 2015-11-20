@@ -3,11 +3,14 @@ package projects.PI.nodes.messages;
 import sinalgo.nodes.messages.Message;
 
 public class INFMessage extends Message {
+	
+	public int id;
 	public int hopToSource;
 	public int senderID;
 
 	
-	public INFMessage(int hopToSource, int senderID) {
+	public INFMessage(int id, int hopToSource, int senderID) {
+		this.id = id;
 		this.hopToSource = hopToSource;
 		this.senderID = senderID;
 	}
@@ -16,7 +19,15 @@ public class INFMessage extends Message {
 	@Override
 	public Message clone() {
 		// TODO Auto-generated method stub
-		return new INFMessage(this.hopToSource,this.senderID);
+		return new INFMessage(this.id, this.hopToSource,this.senderID);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getHopToSink() {

@@ -225,7 +225,8 @@
 
 	</Framework>
 	<Custom>
-	
+
+<tarefa07 numberOfMessages="10"/>	
 <AutoStart value="true"/>
 <taxadeperda droprate="0"/>
 <MessageTransmission ConstantTime="1" />
