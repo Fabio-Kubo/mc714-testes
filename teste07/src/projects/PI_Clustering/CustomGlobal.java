@@ -33,25 +33,29 @@
  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-package projects.PI;
+*/
+package projects.PI_Clustering;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+
+    
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Iterator;
+import java.util.Locale;
 
 import javax.swing.JOptionPane;
 
-import sinalgo.configuration.Configuration;
-import sinalgo.configuration.CorruptConfigurationEntryException;
+import projects.PI_Clustering.nodes.nodeImplementations.PI_ClusteringNode;
+import sinalgo.nodes.Node;
 import sinalgo.runtime.AbstractCustomGlobal;
-import sinalgo.runtime.Global;
 import sinalgo.tools.Tools;
-import sinalgo.tools.logging.Logging;
+
 
 /**
- * This class holds customized global state and methods for the framework. The
- * only mandatory method to overwrite is <code>hasTerminated</code> <br>
+ * This class holds customized global state and methods for the framework. 
+ * The only mandatory method to overwrite is 
+ * <code>hasTerminated</code>
+ * <br>
  * Optional methods to override are
  * <ul>
  * <li><code>customPaint</code></li>
@@ -62,23 +66,19 @@ import sinalgo.tools.logging.Logging;
  * <li><code>postRound</code></li>
  * <li><code>checkProjectRequirements</code></li>
  * </ul>
- * 
- * @see sinalgo.runtime.AbstractCustomGlobal for more details. <br>
- *      In addition, this class also provides the possibility to extend the
- *      framework with custom methods that can be called either through the menu
- *      or via a button that is added to the GUI.
+ * @see sinalgo.runtime.AbstractCustomGlobal for more details.
+ * <br>
+ * In addition, this class also provides the possibility to extend the framework with
+ * custom methods that can be called either through the menu or via a button that is
+ * added to the GUI. 
  */
-public class CustomGlobal extends AbstractCustomGlobal {
-
+public class CustomGlobal extends AbstractCustomGlobal{
+	
 	public static double xPosition;
-
+	
 	public static double yPosition;
 	
-	Logging log;
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see runtime.AbstractCustomGlobal#hasTerminated()
 	 */
 	public boolean hasTerminated() {
@@ -86,41 +86,33 @@ public class CustomGlobal extends AbstractCustomGlobal {
 	}
 
 	/**
-	 * An example of a method that will be available through the menu of the
-	 * GUI.
+	 * An example of a method that will be available through the menu of the GUI.
 	 */
-	@AbstractCustomGlobal.GlobalMethod(menuText = "Echo")
+	@AbstractCustomGlobal.GlobalMethod(menuText="Echo")
 	public void echo() {
 		// Query the user for an input
 		String answer = JOptionPane.showInputDialog(null, "This is an example.\nType in any text to echo.");
-		// Show an information message
+		// Show an information message 
 		JOptionPane.showMessageDialog(null, "You typed '" + answer + "'", "Example Echo", JOptionPane.INFORMATION_MESSAGE);
 	}
-
+	
 	/**
-	 * An example to add a button to the user interface. In this sample, the
-	 * button is labeled with a text 'GO'. Alternatively, you can specify an
-	 * icon that is shown on the button. See AbstractCustomGlobal.CustomButton
-	 * for more details.
+	 * An example to add a button to the user interface. In this sample, the button is labeled
+	 * with a text 'GO'. Alternatively, you can specify an icon that is shown on the button. See
+	 * AbstractCustomGlobal.CustomButton for more details.   
 	 */
-	@AbstractCustomGlobal.CustomButton(buttonText = "GO", toolTipText = "A sample button")
+	@AbstractCustomGlobal.CustomButton(buttonText="GO", toolTipText="A sample button")
 	public void sampleButton() {
 		JOptionPane.showMessageDialog(null, "You Pressed the 'GO' button.");
 	}
-
+	
 	@Override
 	public void onExit() {
 		// TODO Auto-generated method stub
-		log.log(Global.numberOfMessagesOverAll + ";");
+		 
+				
+		
 	}
 	
-	public void preRun() {
-		try {
-			log = Logging.getLogger(Configuration.getStringParameter("Log/LogFile"), true);
-		} catch (CorruptConfigurationEntryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 }
