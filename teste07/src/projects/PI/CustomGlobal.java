@@ -36,9 +36,16 @@
  */
 package projects.PI;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import javax.swing.JOptionPane;
 
 import sinalgo.runtime.AbstractCustomGlobal;
+import sinalgo.runtime.Global;
+import sinalgo.tools.Tools;
+import sinalgo.tools.logging.Logging;
 
 /**
  * This class holds customized global state and methods for the framework. The
@@ -64,6 +71,10 @@ public class CustomGlobal extends AbstractCustomGlobal {
 	public static double xPosition;
 
 	public static double yPosition;
+	
+	private static double startTime;
+	
+	Logging log = Logging.getLogger("monkey_log.txt");
 
 	/*
 	 * (non-Javadoc)
@@ -100,7 +111,12 @@ public class CustomGlobal extends AbstractCustomGlobal {
 	@Override
 	public void onExit() {
 		// TODO Auto-generated method stub
-
+		double dt = System.currentTimeMillis() - startTime;
+		log.logln(Global.numberOfMessagesOverAll + ";" + dt);
+	}
+	
+	public void preRun() {
+		startTime = System.currentTimeMillis();
 	}
 
 }

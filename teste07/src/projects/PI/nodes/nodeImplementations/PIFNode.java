@@ -30,6 +30,7 @@ public class PIFNode extends Node {
 	public void startElection(){
 		
 		//trata temporizador
+
 		ignoreTimer = false;
 
 		//envia msg para os outros nos iniciando a eleicao
@@ -74,7 +75,7 @@ public class PIFNode extends Node {
 					
 					for (Edge edge : this.outgoingConnections) {
 						
-						//nao manda pro noh pai
+						//nao manda pro noh papai
 						if(edge.endNode.ID != ((INFMessage) msg).senderID ){
 							MessageTimer infMSG = new MessageTimer(msg, edge.endNode);
 							infMSG.startRelative(1, this);
@@ -142,7 +143,7 @@ public class PIFNode extends Node {
 		
 		this.numberMessages = 0;
 		this.messagesReceived = new LinkedList<Integer>();
-		startElection();
+		this.startElection();
 	}
 
 	@Override
