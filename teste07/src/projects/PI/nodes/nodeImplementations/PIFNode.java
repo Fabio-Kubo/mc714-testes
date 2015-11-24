@@ -19,7 +19,7 @@ import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
 import sinalgo.nodes.edges.Edge;
 
-public class PI_ClusteringNode extends Node {
+public class PIFNode extends Node {
 	private List<Integer> messagesReceived;
 	private int hopToSource;
 	private int soonList;
@@ -28,17 +28,30 @@ public class PI_ClusteringNode extends Node {
 	int currentLeader;
 
 	public void startElection(){
-
+		
 		//trata temporizador
-		ClusteringMessage msg = new ClusteringMessage(this.ID, ElectionMessage.TIME_EXPIRED);
-		MessageTimer msgTimer = new MessageTimer(msg, 1);
-		msgTimer.startRelative(1, this);
 		ignoreTimer = false;
 
 		//envia msg para os outros nos iniciando a eleicao
-		ClusteringMessage msg2 = new ClusteringMessage(this.ID, ElectionMessage.ELECTION);
-		MessageTimer msgTimer2 = new MessageTimer(msg2);
-		msgTimer2.startRelative(1, this);
+		ClusteringMessage msg = new ClusteringMessage(this.ID, ElectionMessage.ELECTION);
+		MessageTimer msgTimer = new MessageTimer(msg);
+		msgTimer.startRelative(1, this);
+		
+		try {
+			Thread.sleep(1000);
+			if(!ignoreTimer){
+				this.currentLeader = this.ID;
+				System.out.println("Virei lider:" + this.ID);
+				this.setColor(Color.MAGENTA);
+				
+				ClusteringMessage msg2 = new ClusteringMessage(this.ID, ElectionMessage.ELECTION_RESULTS);
+				MessageTimer msgTimer2 = new MessageTimer(msg2);
+				msgTimer2.startRelative(1, this);
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+			
 	}
 		
 	@Override
@@ -61,7 +74,7 @@ public class PI_ClusteringNode extends Node {
 					
 					for (Edge edge : this.outgoingConnections) {
 						
-						//nao manda pro noh papai
+						//nao manda pro noh pai
 						if(edge.endNode.ID != ((INFMessage) msg).senderID ){
 							MessageTimer infMSG = new MessageTimer(msg, edge.endNode);
 							infMSG.startRelative(1, this);
@@ -129,27 +142,7 @@ public class PI_ClusteringNode extends Node {
 		
 		this.numberMessages = 0;
 		this.messagesReceived = new LinkedList<Integer>();
-		
-		/*try {
-			numberMessages = Configuration.getIntegerParameter("tarefa07/numberOfMessages");
-		} catch (CorruptConfigurationEntryException e) {
-			e.printStackTrace();
-		}
-		*/
-
 		startElection();
-			
-		/*Considerando que o n� 1 tem a mensagem inf
-		if (this.ID == 1) {
-			this.setColor(Color.RED);
-			this.hopToSource = 0;
-			
-			for(int i=0; i < numberMessages; i++){
-				MessageTimer infMSG = new MessageTimer(new INFMessage(i, 1, this.ID));
-				infMSG.startRelative(0.1, this);
-			}
-		}
-		*/
 	}
 
 	@Override
